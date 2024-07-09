@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Container, Typography, Box } from '@mui/material';
 
 function HomePage() {
-  const imageUrl = 'https://via.placeholder.com/600x400';  // Replace with your image URL
+  const imageUrl = 'public/image/team.jpg';  // Replace with your image URL
 
   return (
     <Container>
