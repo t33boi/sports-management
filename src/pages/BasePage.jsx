@@ -33,8 +33,11 @@ const BasePage = () => {
       <Button color="inherit" component={RouterLink} to="/matches">
         Matches
       </Button>
-      <Button color="inherit" component={RouterLink} to="/matches">
-        Matches
+      <Button color="inherit" component={RouterLink} to="/statistics">
+      Statistics
+      </Button>
+      <Button color="inherit" component={RouterLink} to="/reports">
+      Reports
       </Button>
     </>
   );
@@ -52,6 +55,12 @@ const BasePage = () => {
       </MenuItem>
       <MenuItem onClick={handleMenuClose} component={RouterLink} to="/matches">
         Matches
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose} component={RouterLink} to="/statistics">
+      Statistics
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose} component={RouterLink} to="/reports">
+      Reports
       </MenuItem>
     </>
   );
