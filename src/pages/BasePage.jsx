@@ -1,92 +1,88 @@
 import React, { useState } from 'react';
-import { Outlet, Link as RouterLink } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, Box, IconButton, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Container, Typography, Box, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import HomeIcon from '@mui/icons-material/Home';
+import PeopleIcon from '@mui/icons-material/People';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 
-const BasePage = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+function HomePage() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const imageUrl = '/public/image/team.jpg'; // Replace with your image URL
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
   };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const menuItems = (
-    <>
-      <Button color="inherit" component={RouterLink} to="/">
-        Home
-      </Button>
-      <Button color="inherit" component={RouterLink} to="/teams">
-        Teams
-      </Button>
-      <Button color="inherit" component={RouterLink} to="/players">
-        Players
-      </Button>
-      <Button color="inherit" component={RouterLink} to="/matches">
-        Matches
-      </Button>
-      <Button color="inherit" component={RouterLink} to="/matches">
-        Matches
-      </Button>
-    </>
-  );
-
-  const mobileMenuItems = (
-    <>
-      <MenuItem onClick={handleMenuClose} component={RouterLink} to="/">
-        Home
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose} component={RouterLink} to="/teams">
-        Teams
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose} component={RouterLink} to="/players">
-        Players
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose} component={RouterLink} to="/matches">
-        Matches
-      </MenuItem>
-    </>
-  );
 
   return (
-    <>
-      <AppBar position="static">
+    <Box display="flex">
+      <AppBar position="fixed">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            SPORT MANAGER
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6">
+            Sport Manager
           </Typography>
-          {isMobile ? (
-            <>
-              <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMenuOpen}>
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-              >
-                {mobileMenuItems}
-              </Menu>
-            </>
-          ) : (
-            menuItems
-          )}
         </Toolbar>
       </AppBar>
+      
+      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer}>
+        <Box
+          sx={{ width: 250 }}
+          role="presentation"
+          onClick={toggleDrawer}
+          onKeyDown={toggleDrawer}
+        >
+          <List>
+            <ListItem button>
+              <ListItemIcon><HomeIcon /></ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><PeopleIcon /></ListItemIcon>
+              <ListItemText primary="Teams" />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><SportsSoccerIcon /></ListItemIcon>
+              <ListItemText primary="Players" />
+            </ListItem>
+          </List>
+        </Box>
+      </Drawer>
 
-      <Box sx={{ p: 3 }}>
-        <Outlet />
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Toolbar />
+        <Container>
+          <Box textAlign="center" mt={5}>
+            <Typography variant="h3" gutterBottom>
+              Welcome to Sport Manager
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+              Your one-stop solution for managing sports teams, players, and matches effortlessly.
+            </Typography>
+            <Box>
+              <img 
+                src={imageUrl} 
+                alt="Football Team" 
+                style={{ 
+                  width: '100%', 
+                  maxWidth: '600px', 
+                  height: 'auto', 
+                  borderRadius: '8px', 
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' 
+                }} 
+              />
+            </Box>
+            <Box mt={4}>
+              <Button variant="contained" color="primary" size="large">
+                Get Started
+              </Button>
+            </Box>
+          </Box>
+        </Container>
       </Box>
-    </>
+    </Box>
   );
-};
+}
 
-export default BasePage;
+export default HomePage;
