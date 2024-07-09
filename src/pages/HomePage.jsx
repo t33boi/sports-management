@@ -2,8 +2,7 @@ import React from 'react';
 import { Button, Container, Typography, Box } from '@mui/material';
 
 function HomePage() {
-  const imageUrl = 'image/team.jpg';  // Replace with your image URL
-
+  const imageUrl = 'image/team.jpg';  
   return (
     <Container>
       <Box textAlign="center" mt={5}>
